@@ -1,0 +1,9 @@
+{
+  "generator-react-webpack": {
+    "appName": "project-manager",
+    "style": "stylus",
+    "cssmodules": true,
+    "postcss": true,
+    "generatedWithVersion": 4
+  }
+}
