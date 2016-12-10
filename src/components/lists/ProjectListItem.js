@@ -20,6 +20,8 @@ export default class ProjectListItem extends PureComponent {
     return (
       <ListGroupItem tag="a" action active={isActive} href={href}>
         {entity.name}
+        <hr />
+        {entity.startDate} - {entity.endDate}
       </ListGroupItem>
     );
   }
