@@ -14,7 +14,7 @@ import {
 } from '../../actions/projects';
 import { PATHS } from '../../core/routes';
 
-import EntitiesList from './_EntitiesList';
+import EntityList from './_EntityList';
 
 
 @connect(state => ({
@@ -23,9 +23,9 @@ import EntitiesList from './_EntitiesList';
   listEntities,
   createEntity
 })
-export default class ProjectList extends EntitiesList {
+export default class ProjectList extends EntityList {
   static propTypes = {
-    ...EntitiesList.propTypes,
+    ...EntityList.propTypes,
     entities: PropTypes.arrayOf(PropTypes.instanceOf(ProjectModel)).isRequired
   };
 

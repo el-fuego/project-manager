@@ -4,7 +4,7 @@ import autobind from 'autobind';
 import TwoColumnsLayout from '../../components/TwoColumnsLayout';
 
 
-export default class EntitiesList extends PureComponent {
+export default class EntityList extends PureComponent {
   static propTypes = {
     children: PropTypes.element,
     listEntities: PropTypes.func.isRequired,
