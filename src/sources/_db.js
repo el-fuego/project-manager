@@ -1,5 +1,5 @@
 import treo from 'treo';
-import promise from 'treo/plugins/treo-promise';
+import wrapWithPromise from './_wrapWithPromise.plugin';
 
 const DB_NAME = 'project-manager';
 
@@ -19,4 +19,4 @@ const schema = treo.schema()
 
   .addStore(STORE_NAMES.PROJECT_EMPLOYEES, { key: 'id' });
 
-export default treo(DB_NAME, schema).use(promise());
+export default treo(DB_NAME, schema).use(wrapWithPromise);
