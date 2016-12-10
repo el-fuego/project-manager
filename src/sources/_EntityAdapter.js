@@ -1,4 +1,4 @@
-import { sortBy, findIndex, noop } from 'lodash';
+import { sortBy, findIndex } from 'lodash';
 
 function increaseSortIndex(items, startIndex, endIndex, value) {
   const affectedItems = [];
@@ -18,17 +18,18 @@ export default class EntityAdapter {
   }
 
   list() {
-    return this.store.all(noop).then(list => sortBy(list, 'sortIndex'));
+    return this.store.all().then(list => sortBy(list, 'sortIndex'));
   }
 
   create(data) {
-    return this.list().then(
-      items => this.store.put({
+    const id = Date.now();
+    return this.list()
+      .then(items => this.store.put({
         ...data,
-        id: Date.now(),
-        sortIndex: items[items.length - 1] + 1
-      })
-    );
+        id,
+        sortIndex: items.length ? items[items.length - 1] + 1 : 0
+      }))
+      .then(this.store.get);
   }
 
   get(id) {
