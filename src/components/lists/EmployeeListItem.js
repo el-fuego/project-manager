@@ -1,12 +1,12 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { ListGroupItem } from 'reactstrap';
 
-import ProjectModel from '../../models/Project';
+import EmployeeModel from '../../models/Employee';
 
-export default class ProjectListItem extends PureComponent {
+export default class EmployeeListItem extends PureComponent {
   static propTypes = {
     href: PropTypes.string.isRequired,
-    project: PropTypes.instanceOf(ProjectModel).isRequired,
+    entity: PropTypes.instanceOf(EmployeeModel).isRequired,
     isActive: PropTypes.bool
   };
 
@@ -15,11 +15,11 @@ export default class ProjectListItem extends PureComponent {
   };
 
   render() {
-    const { href, project, isActive } = this.props;
+    const { href, entity, isActive } = this.props;
 
     return (
       <ListGroupItem tag="a" action active={isActive} href={href}>
-        {project.name}
+        {entity.name}
       </ListGroupItem>
     );
   }
