@@ -21,6 +21,10 @@ export default class AddNewEmployee extends AddNewEntity {
           <Label>Employee Name</Label>
           <Input type="text" onChange={partial(this.updateModelField, 'name')} />
         </FormGroup>
+        <FormGroup>
+          <Label>E-mail address</Label>
+          <Input type="text" onChange={partial(this.updateModelField, 'email')} />
+        </FormGroup>
       </Form>
     );
   }

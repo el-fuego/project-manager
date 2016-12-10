@@ -19,7 +19,7 @@ export default class EmployeeListItem extends PureComponent {
 
     return (
       <ListGroupItem tag="a" action active={isActive} href={href}>
-        {entity.name}
+        {entity.name} [{entity.email}]
       </ListGroupItem>
     );
   }
