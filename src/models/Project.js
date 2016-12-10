@@ -1,5 +1,9 @@
-import BaseModel from './BaseModel';
+import assignFields from './_assignFields';
 
-export default class Project extends BaseModel {
-  static FIELDS = ['id', 'name', 'isUnread', 'sortIndex', 'startDate', 'endDate'];
+const FIELDS_NAMES = ['id', 'name', 'isUnread', 'sortIndex', 'startDate', 'endDate'];
+
+export default class Project {
+  constructor(data) {
+    assignFields(this, data, FIELDS_NAMES);
+  }
 }

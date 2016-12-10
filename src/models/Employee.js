@@ -1,5 +1,9 @@
-import BaseModel from './BaseModel';
+import assignFields from './_assignFields';
 
-export default class Employee extends BaseModel {
-  static FIELDS = ['id', 'name', 'isUnread', 'sortIndex', 'email'];
+const FIELDS_NAMES = ['id', 'name', 'isUnread', 'sortIndex', 'email'];
+
+export default class Employee {
+  constructor(data) {
+    assignFields(this, data, FIELDS_NAMES);
+  }
 }
