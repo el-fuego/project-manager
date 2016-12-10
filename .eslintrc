@@ -12,6 +12,7 @@
     "object-curly-spacing": ["off"],
     "padded-blocks": ["off"],
     "class-methods-use-this": ["off"],
+    "react/forbid-prop-types": [ "error", { "forbid": ["any", "array"] }],
     "react/jsx-closing-bracket-location": ["off"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-space-before-closing": ["off"],
