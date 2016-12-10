@@ -1,4 +1,4 @@
-import { castArray, map, keyBy, pluck } from 'lodash';
+import { castArray, map, keyBy } from 'lodash';
 
 /**
  * Add as new Model single or array data from response to scope
@@ -8,7 +8,7 @@ import { castArray, map, keyBy, pluck } from 'lodash';
  * @return {Object} new scope
  */
 export function addAsModelsByIds(Model, scope, action) {
-  const modelsData = castArray(action.payload.response);
+  const modelsData = castArray(action.payload);
   if (!modelsData.length) {
     return scope;
   }
@@ -27,7 +27,7 @@ export function addAsModelsByIds(Model, scope, action) {
  * @return {Object} new scope
  */
 export function saveIds(scope, action) {
-  return pluck(action.payload.response, 'id');
+  return map(action.payload, 'id');
 }
 
 /**
@@ -39,6 +39,6 @@ export function saveIds(scope, action) {
 export function addId(scope, action) {
   return [
     ...scope,
-    action.payload.response.id
+    action.payload.id
   ];
 }
