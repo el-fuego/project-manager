@@ -1,7 +1,11 @@
 import React, { PureComponent, PropTypes } from 'react';
-import { Form, FormGroup, Label, Col, Input } from 'reactstrap';
+import { Form } from 'reactstrap';
 
 import ProjectModel from '../../models/Project';
+import EditableInput from '../EditableInput';
+import EditableDateInput from '../EditableDateInput';
+import ValidableFormField from '../ValidableFormField';
+
 
 export default class ProjectDetails extends PureComponent {
   static propTypes = {
@@ -13,24 +17,17 @@ export default class ProjectDetails extends PureComponent {
 
     return (
       <Form>
-        <FormGroup row>
-          <Label sm={6}>Name</Label>
-          <Col sm={10}>
-            {entity.name}
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Label sm={6}>Start Date</Label>
-          <Col sm={10}>
-            {entity.startDate}
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Label sm={6}>End Date</Label>
-          <Col sm={10}>
-            {entity.endDate}
-          </Col>
-        </FormGroup>
+        <ValidableFormField label="Name">
+          <EditableInput value={entity.name} />
+        </ValidableFormField>
+
+        <ValidableFormField label="Start Date">
+          <EditableDateInput value={entity.startDate} />
+        </ValidableFormField>
+
+        <ValidableFormField label="End Date">
+          <EditableDateInput value={entity.endDate} />
+        </ValidableFormField>
       </Form>
     );
   }
