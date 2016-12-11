@@ -37,7 +37,8 @@ export default class EntityAdapter {
   }
 
   update(data) {
-    return this.store.put(data);
+    return this.store.put(data)
+      .then(this.store.get);
   }
 
   remove(id) {
