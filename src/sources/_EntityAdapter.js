@@ -40,6 +40,10 @@ export default class EntityAdapter {
     return this.store.put(data);
   }
 
+  remove(id) {
+    return this.store.del(id).then(() => id);
+  }
+
   // in real life there will be just http call
   // server method will be DB transaction
   // with nextItemId changing instead of

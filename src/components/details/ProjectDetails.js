@@ -1,5 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react';
-import { Form } from 'reactstrap';
+import { Form, Button } from 'reactstrap';
 
 import ProjectModel from '../../models/Project';
 import EditableInput from '../EditableInput';
@@ -9,7 +9,8 @@ import ValidableFormField from '../ValidableFormField';
 
 export default class ProjectDetails extends PureComponent {
   static propTypes = {
-    entity: PropTypes.instanceOf(ProjectModel).isRequired
+    entity: PropTypes.instanceOf(ProjectModel).isRequired,
+    onRemove: PropTypes.func
   };
 
   render() {
@@ -28,6 +29,11 @@ export default class ProjectDetails extends PureComponent {
         <ValidableFormField label="End Date">
           <EditableDateInput value={entity.endDate} />
         </ValidableFormField>
+
+
+        <Button color="link" onClick={this.props.onRemove}>
+          Remove Project
+        </Button>
       </Form>
     );
   }

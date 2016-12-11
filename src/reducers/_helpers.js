@@ -1,4 +1,4 @@
-import { castArray, map, keyBy } from 'lodash';
+import { castArray, map, keyBy, without } from 'lodash';
 
 /**
  * Add as new Model single or array data from response to scope
@@ -41,4 +41,15 @@ export function addId(scope, action) {
     ...scope,
     action.payload.id
   ];
+}
+
+
+/**
+ * Remove single id from response from scope
+ * @param {Object} scope Reducer`s store part
+ * @param {Object} action Redux action
+ * @return {Object} new scope
+ */
+export function removeId(scope, action) {
+  return without(scope, action.payload);
 }
