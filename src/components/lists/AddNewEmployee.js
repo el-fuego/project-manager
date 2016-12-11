@@ -1,9 +1,10 @@
 import React from 'react';
 import { partial } from 'lodash';
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { Form, Input } from 'reactstrap';
 
 import AddNewEntity from './_AddNewEntity';
 import EmployeeModel from '../../models/Employee';
+import FormFieldWithError from '../FormFieldWithError';
 
 export default class AddNewEmployee extends AddNewEntity {
   static propTypes = AddNewEntity.propTypes;
@@ -17,14 +18,12 @@ export default class AddNewEmployee extends AddNewEntity {
   get form() {
     return (
       <Form>
-        <FormGroup>
-          <Label>Employee Name</Label>
+        <FormFieldWithError label="Employee Name" error={this.getFirstErrorFor('name')}>
           <Input type="text" onChange={partial(this.updateModelField, 'name')} />
-        </FormGroup>
-        <FormGroup>
-          <Label>E-mail address</Label>
+        </FormFieldWithError>
+        <FormFieldWithError label="E-mail address" error={this.getFirstErrorFor('email')}>
           <Input type="text" onChange={partial(this.updateModelField, 'email')} />
-        </FormGroup>
+        </FormFieldWithError>
       </Form>
     );
   }

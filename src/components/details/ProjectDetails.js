@@ -4,7 +4,7 @@ import { Form, Button } from 'reactstrap';
 import ProjectModel from '../../models/Project';
 import EditableInput from '../EditableInput';
 import EditableDateInput from '../EditableDateInput';
-import ValidableFormField from '../ValidableFormField';
+import FormFieldWithError from '../FormFieldWithError';
 
 
 export default class ProjectDetails extends PureComponent {
@@ -18,17 +18,17 @@ export default class ProjectDetails extends PureComponent {
 
     return (
       <Form>
-        <ValidableFormField label="Name">
+        <FormFieldWithError label="Name">
           <EditableInput value={entity.name} />
-        </ValidableFormField>
+        </FormFieldWithError>
 
-        <ValidableFormField label="Start Date">
+        <FormFieldWithError label="Start Date">
           <EditableDateInput value={entity.startDate} />
-        </ValidableFormField>
+        </FormFieldWithError>
 
-        <ValidableFormField label="End Date">
+        <FormFieldWithError label="End Date">
           <EditableDateInput value={entity.endDate} />
-        </ValidableFormField>
+        </FormFieldWithError>
 
 
         <Button color="link" onClick={this.props.onRemove}>

@@ -1,4 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react';
+import { isEqual, isEmpty, first } from 'lodash';
 import autobind from 'autobind';
 import { ListGroupItem } from 'reactstrap';
 
@@ -11,8 +12,13 @@ export default class AddNewEntity extends PureComponent {
 
   state = {
     isModalOpen: false,
-    model: this.emptyModel
+    model: this.emptyModel,
+    errors: this.emptyModel.validate()
   };
+
+  getFirstErrorFor(fieldName) {
+    return first(this.state.errors[fieldName]);
+  }
 
   @autobind
   openModal() {
@@ -22,22 +28,35 @@ export default class AddNewEntity extends PureComponent {
   }
 
   @autobind
-  closeModal() {
+  reset() {
+    const model = this.emptyModel;
     this.setState({
-      model: this.emptyModel,
-      isModalOpen: false
+      model,
+      isModalOpen: false,
+      errors: model.validate()
     });
   }
 
   @autobind
   updateModelField(fiendName, event) {
     this.state.model[fiendName] = event.target.value;
+    this.validate();
   }
 
   @autobind
   addModel() {
+    if (!isEmpty(this.state.errors)) {
+      return;
+    }
     this.props.onAdd(this.state.model);
-    this.closeModal();
+    this.reset();
+  }
+
+  validate() {
+    const errors = this.state.model.validate();
+    if (!isEqual(errors, this.state.errors)) {
+      this.setState({ errors });
+    }
   }
 
   get modal() {
@@ -48,7 +67,7 @@ export default class AddNewEntity extends PureComponent {
         title={this.modalTitle}
         isOpen={isModalOpen}
         onSave={this.addModel}
-        onClose={this.closeModal}>
+        onClose={this.reset}>
         {this.form}
       </NewEntityModal>
     );

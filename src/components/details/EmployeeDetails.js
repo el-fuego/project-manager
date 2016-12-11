@@ -3,7 +3,7 @@ import { Form, Button } from 'reactstrap';
 
 import EmployeeModel from '../../models/Employee';
 import EditableInput from '../EditableInput';
-import ValidableFormField from '../ValidableFormField';
+import FormFieldWithError from '../FormFieldWithError';
 
 
 export default class EmployeeDetails extends PureComponent {
@@ -17,13 +17,13 @@ export default class EmployeeDetails extends PureComponent {
 
     return (
       <Form>
-        <ValidableFormField label="Name">
+        <FormFieldWithError label="Name">
           <EditableInput value={entity.name} />
-        </ValidableFormField>
+        </FormFieldWithError>
 
-        <ValidableFormField label="E-mail">
+        <FormFieldWithError label="E-mail">
           <EditableInput value={entity.email} />
-        </ValidableFormField>
+        </FormFieldWithError>
 
         <Button color="link" onClick={this.props.onRemove}>
           Remove Employee

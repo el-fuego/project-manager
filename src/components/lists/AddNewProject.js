@@ -1,12 +1,14 @@
 import React from 'react';
 import autobind from 'autobind';
-import { partial } from 'lodash';
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { partial, first } from 'lodash';
+import { Form, Input } from 'reactstrap';
 import DateTime from 'react-datetime';
 import styles from 'react-datetime/css/react-datetime.css';
 
 import AddNewEntity from './_AddNewEntity';
 import ProjectModel from '../../models/Project';
+import { DATE_FORMAT } from '../../models/_helpers';
+import FormFieldWithError from '../FormFieldWithError';
 
 export default class AddNewProject extends AddNewEntity {
   static propTypes = AddNewEntity.propTypes;
@@ -17,7 +19,8 @@ export default class AddNewProject extends AddNewEntity {
 
   @autobind
   updateDateField(fieldName, momentValue) {
-    this.state.model[fieldName] = typeof momentValue === 'string' ? momentValue : momentValue.format('DD.MM.YYYY');
+    this.state.model[fieldName] = typeof momentValue === 'string' ? momentValue : momentValue.format(DATE_FORMAT);
+    this.validate();
   }
 
   modalTitle = 'New Project';
@@ -25,26 +28,23 @@ export default class AddNewProject extends AddNewEntity {
   get form() {
     return (
       <Form>
-        <FormGroup>
-          <Label>Project Name</Label>
+        <FormFieldWithError label="Project Name" error={this.getFirstErrorFor('name')}>
           <Input type="text" onChange={partial(this.updateModelField, 'name')} />
-        </FormGroup>
-        <FormGroup>
-          <Label>Start Date</Label>
+        </FormFieldWithError>
+        <FormFieldWithError label="Start Date" error={this.getFirstErrorFor('startDate')}>
           <DateTime
-            dateFormat="DD.MM.YYYY"
+            dateFormat={DATE_FORMAT}
             timeFormat={false}
             closeOnSelect
             onChange={partial(this.updateDateField, 'startDate')} />
-        </FormGroup>
-        <FormGroup>
-          <Label>End Date</Label>
+        </FormFieldWithError>
+        <FormFieldWithError label="End Date" error={this.getFirstErrorFor('endDate')}>
           <DateTime
-            dateFormat="DD.MM.YYYY"
+            dateFormat={DATE_FORMAT}
             timeFormat={false}
             closeOnSelect
             onChange={partial(this.updateDateField, 'endDate')} />
-        </FormGroup>
+        </FormFieldWithError>
       </Form>
     );
   }
