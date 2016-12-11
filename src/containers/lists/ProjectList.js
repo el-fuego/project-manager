@@ -32,10 +32,14 @@ export default class ProjectList extends EntityList {
   @autobind
   renderListItem(entity) {
     const { createHref, isActive } = this.context.router;
-    const href = createHref(`${PATHS.PROJECTS}/${entity.id}`);
+    const path = `${PATHS.PROJECTS}/${entity.id}`;
 
     return (
-      <ListItem entity={entity} isActive={isActive(href, true)} href={href} key={entity.id} />
+      <ListItem
+        entity={entity}
+        isActive={isActive(path, true)}
+        href={createHref(path)}
+        key={entity.id} />
     );
   }
 

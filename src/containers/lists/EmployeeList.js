@@ -32,10 +32,14 @@ export default class EmployeeList extends EntityList {
   @autobind
   renderListItem(entity) {
     const { createHref, isActive } = this.context.router;
-    const href = createHref(`${PATHS.EMPLOYEES}/${entity.id}`);
+    const path = `${PATHS.EMPLOYEES}/${entity.id}`;
 
     return (
-      <ListItem entity={entity} isActive={isActive(href, true)} href={href} key={entity.id} />
+      <ListItem
+        entity={entity}
+        isActive={isActive(path, true)}
+        href={createHref(path)}
+        key={entity.id} />
     );
   }
 
