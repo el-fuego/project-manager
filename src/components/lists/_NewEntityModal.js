@@ -7,11 +7,16 @@ export default class Project extends PureComponent {
     title: PropTypes.node.isRequired,
     onSave: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
-    isOpen: PropTypes.bool.isRequired
+    isOpen: PropTypes.bool.isRequired,
+    canSave: PropTypes.bool
+  };
+
+  static defaultProps = {
+    canSave: true
   };
 
   render() {
-    const { isOpen, onSave, onClose, children, title } = this.props;
+    const { isOpen, onSave, onClose, children, title, canSave } = this.props;
 
     return (
       <Modal isOpen={isOpen} toggle={onClose}>
@@ -22,7 +27,7 @@ export default class Project extends PureComponent {
           {children}
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={onSave}>
+          <Button disabled={!canSave} color="primary" onClick={onSave}>
             Save
           </Button>
           {' '}

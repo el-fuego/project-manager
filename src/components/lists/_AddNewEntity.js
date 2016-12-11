@@ -21,6 +21,10 @@ export default class AddNewEntity extends PureComponent {
     return first(this.state.errors[fieldName]);
   }
 
+  get hasErrors() {
+    return !isEmpty(this.state.errors);
+  }
+
   @autobind
   openModal() {
     this.setState({
@@ -47,8 +51,8 @@ export default class AddNewEntity extends PureComponent {
 
   @autobind
   addModel() {
-    const { errors, model, formTouched } = this.state;
-    if (!isEmpty(errors)) {
+    const { model, formTouched } = this.state;
+    if (this.hasErrors) {
       if (!formTouched) {
         this.setState({ formTouched: true });
       }
@@ -73,7 +77,8 @@ export default class AddNewEntity extends PureComponent {
         title={this.modalTitle}
         isOpen={isModalOpen}
         onSave={this.addModel}
-        onClose={this.reset}>
+        onClose={this.reset}
+        canSave={!this.hasErrors}>
         {this.form}
       </NewEntityModal>
     );
