@@ -16,12 +16,14 @@ export default class AddNewEmployee extends AddNewEntity {
   modalTitle = 'New Employee';
 
   get form() {
+    const { formTouched } = this.state;
+
     return (
       <Form>
-        <FormFieldWithError label="Employee Name" error={this.getFirstErrorFor('name')}>
+        <FormFieldWithError label="Employee Name" error={this.getFirstErrorFor('name')} touched={formTouched}>
           <Input type="text" onChange={partial(this.updateModelField, 'name')} />
         </FormFieldWithError>
-        <FormFieldWithError label="E-mail address" error={this.getFirstErrorFor('email')}>
+        <FormFieldWithError label="E-mail address" error={this.getFirstErrorFor('email')} touched={formTouched}>
           <Input type="text" onChange={partial(this.updateModelField, 'email')} />
         </FormFieldWithError>
       </Form>

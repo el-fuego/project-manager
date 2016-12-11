@@ -13,7 +13,8 @@ export default class AddNewEntity extends PureComponent {
   state = {
     isModalOpen: false,
     model: this.emptyModel,
-    errors: this.emptyModel.validate()
+    errors: this.emptyModel.validate(),
+    formTouched: false
   };
 
   getFirstErrorFor(fieldName) {
@@ -33,7 +34,8 @@ export default class AddNewEntity extends PureComponent {
     this.setState({
       model,
       isModalOpen: false,
-      errors: model.validate()
+      errors: model.validate(),
+      formTouched: false
     });
   }
 
@@ -45,10 +47,14 @@ export default class AddNewEntity extends PureComponent {
 
   @autobind
   addModel() {
-    if (!isEmpty(this.state.errors)) {
+    const { errors, model, formTouched } = this.state;
+    if (!isEmpty(errors)) {
+      if (!formTouched) {
+        this.setState({ formTouched: true });
+      }
       return;
     }
-    this.props.onAdd(this.state.model);
+    this.props.onAdd(model);
     this.reset();
   }
 
