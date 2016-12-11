@@ -56,7 +56,7 @@ export default class AddNewEntity extends PureComponent {
 
   get button() {
     return (
-      <ListGroupItem tag="button" action active onClick={this.openModal}>
+      <ListGroupItem tag="button" color="success" action onClick={this.openModal}>
         + Add new
       </ListGroupItem>
     );
