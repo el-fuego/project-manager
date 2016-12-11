@@ -27,9 +27,11 @@ export default class EmployeeDetails extends EntityDetails {
   AFTER_REMOVE_PATH = PATHS.EMPLOYEES;
 
   get content() {
+    const { entity } = this.props;
     return (
       <Details
-        entity={this.props.entity}
+        key={entity.id}
+        entity={entity}
         onRemove={this.removeEntity}
         onFieldSave={this.updateEntityFiled} />
     );

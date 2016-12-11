@@ -27,9 +27,11 @@ export default class ProjectDetails extends EntityDetails {
   AFTER_REMOVE_PATH = PATHS.PROJECTS;
 
   get content() {
+    const { entity } = this.props;
     return (
       <Details
-        entity={this.props.entity}
+        key={entity.id}
+        entity={entity}
         onRemove={this.removeEntity}
         onFieldSave={this.updateEntityFiled} />
     );
