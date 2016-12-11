@@ -9,7 +9,7 @@ import { DATE_FORMAT } from '../models/_helpers';
 export default class EditableDateInput extends EditableInput {
 
   get input() {
-    const props = omit(this.props, ['onSave']);
+    const props = omit(this.props, ['onSave', 'onCancel', 'canSave']);
     return (
       <DateTime
         dateFormat={DATE_FORMAT}

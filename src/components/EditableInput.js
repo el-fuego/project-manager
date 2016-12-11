@@ -6,12 +6,16 @@ import { Input, InputGroup, InputGroupButton } from 'reactstrap';
 export default class EditableInput extends PureComponent {
   static propTypes = {
     value: PropTypes.string.isRequired,
-    hasError: PropTypes.bool,
-    onSave: PropTypes.func
+    canSave: PropTypes.bool,
+    onSave: PropTypes.func,
+    onCancel: PropTypes.func
   };
 
   static defaultProps = {
-    onSave: noop
+    onChange: noop,
+    onCancel: noop,
+    onSave: noop,
+    canSave: true
   };
 
   state = {
@@ -20,9 +24,8 @@ export default class EditableInput extends PureComponent {
 
   @autobind
   onSave() {
-    if (this.props.onSave() !== false) {
-      this.disableEdit();
-    }
+    this.props.onSave();
+    this.setState({ isEdit: false });
   }
 
   @autobind
@@ -31,20 +34,22 @@ export default class EditableInput extends PureComponent {
   }
 
   @autobind
-  disableEdit() {
+  cancelEdit() {
+    this.props.onCancel();
+
     this.setState({ isEdit: false });
   }
 
   get input() {
     const { value } = this.props;
-    const props = omit(this.props, ['value', 'onSave']);
+    const props = omit(this.props, ['value', 'onSave', 'onCancel', 'canSave']);
     return (
       <Input type="text" defaultValue={value} {...props} />
     );
   }
 
   render() {
-    const { value } = this.props;
+    const { value, canSave } = this.props;
 
     if (!this.state.isEdit) {
       return (
@@ -55,10 +60,10 @@ export default class EditableInput extends PureComponent {
     return (
       <InputGroup>
         {this.input}
-        <InputGroupButton color="secondary" onClick={this.disableEdit}>
+        <InputGroupButton color="secondary" onClick={this.cancelEdit}>
           Cancel
         </InputGroupButton>
-        <InputGroupButton color="primary" disabled={this.props.hasError} onClick={this.onSave}>
+        <InputGroupButton color="primary" disabled={!canSave} onClick={this.onSave}>
           Save
         </InputGroupButton>
       </InputGroup>
