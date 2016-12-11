@@ -1,8 +1,13 @@
 import React, { PureComponent, PropTypes } from 'react';
+import { partial } from 'lodash';
 import autobind from 'autobind';
-import { ListGroupItem } from 'reactstrap';
+import { ListGroupItem, Input } from 'reactstrap';
+import DateTime from 'react-datetime';
+import styles from 'react-datetime/css/react-datetime.css';
 
+import FormFieldWithError from '../FormFieldWithError';
 import NewEntityModal from './_NewEntityModal';
+import { DATE_FORMAT } from '../../models/_helpers';
 
 
 export default class AddNewEntity extends PureComponent {
@@ -10,7 +15,10 @@ export default class AddNewEntity extends PureComponent {
     onAdd: PropTypes.func.isRequired,
     model: PropTypes.object.isRequired,
     hasErrors: PropTypes.bool.isRequired,
-    resetModel: PropTypes.func.isRequired
+    resetModel: PropTypes.func.isRequired,
+    updateField: PropTypes.func.isRequired,
+    updateDateField: PropTypes.func.isRequired,
+    getFirstErrorFor: PropTypes.func.isRequired
   };
 
   state = {
@@ -70,6 +78,32 @@ export default class AddNewEntity extends PureComponent {
       <ListGroupItem tag="button" color="success" action onClick={this.openModal}>
         + Add new
       </ListGroupItem>
+    );
+  }
+
+  renderField(label, fieldName) {
+    const { formTouched } = this.state;
+    const { getFirstErrorFor, updateField } = this.props;
+
+    return (
+      <FormFieldWithError label={label} error={getFirstErrorFor(fieldName)} touched={formTouched}>
+        <Input type="text" onChange={partial(updateField, fieldName)} />
+      </FormFieldWithError>
+    );
+  }
+
+  renderDateField(label, fieldName) {
+    const { formTouched } = this.state;
+    const { getFirstErrorFor, updateDateField } = this.props;
+
+    return (
+      <FormFieldWithError label={label} error={getFirstErrorFor(fieldName)} touched={formTouched}>
+        <DateTime
+          dateFormat={DATE_FORMAT}
+          timeFormat={false}
+          closeOnSelect
+          onChange={partial(updateDateField, fieldName)} />
+      </FormFieldWithError>
     );
   }
 
