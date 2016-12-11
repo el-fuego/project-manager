@@ -1,29 +1,22 @@
 import React, { PureComponent, PropTypes } from 'react';
-import { isEqual, isEmpty, first } from 'lodash';
 import autobind from 'autobind';
 import { ListGroupItem } from 'reactstrap';
 
 import NewEntityModal from './_NewEntityModal';
 
+
 export default class AddNewEntity extends PureComponent {
   static propTypes = {
-    onAdd: PropTypes.func.isRequired
+    onAdd: PropTypes.func.isRequired,
+    model: PropTypes.object.isRequired,
+    hasErrors: PropTypes.bool.isRequired,
+    resetModel: PropTypes.func.isRequired
   };
 
   state = {
     isModalOpen: false,
-    model: this.emptyModel,
-    errors: this.emptyModel.validate(),
     formTouched: false
   };
-
-  getFirstErrorFor(fieldName) {
-    return first(this.state.errors[fieldName]);
-  }
-
-  get hasErrors() {
-    return !isEmpty(this.state.errors);
-  }
 
   @autobind
   openModal() {
@@ -34,25 +27,20 @@ export default class AddNewEntity extends PureComponent {
 
   @autobind
   reset() {
-    const model = this.emptyModel;
     this.setState({
-      model,
       isModalOpen: false,
-      errors: model.validate(),
       formTouched: false
     });
-  }
 
-  @autobind
-  updateModelField(fiendName, event) {
-    this.state.model[fiendName] = event.target.value;
-    this.validate();
+    this.props.resetModel();
   }
 
   @autobind
   addModel() {
-    const { model, formTouched } = this.state;
-    if (this.hasErrors) {
+    const { formTouched } = this.state;
+    const { hasErrors, model } = this.props;
+
+    if (hasErrors) {
       if (!formTouched) {
         this.setState({ formTouched: true });
       }
@@ -60,13 +48,6 @@ export default class AddNewEntity extends PureComponent {
     }
     this.props.onAdd(model);
     this.reset();
-  }
-
-  validate() {
-    const errors = this.state.model.validate();
-    if (!isEqual(errors, this.state.errors)) {
-      this.setState({ errors });
-    }
   }
 
   get modal() {
@@ -78,7 +59,7 @@ export default class AddNewEntity extends PureComponent {
         isOpen={isModalOpen}
         onSave={this.addModel}
         onClose={this.reset}
-        canSave={!this.hasErrors}>
+        canSave={!this.props.hasErrors}>
         {this.form}
       </NewEntityModal>
     );
