@@ -9,7 +9,7 @@ export const DATE_FORMAT = 'DD.MM.YYYY';
 
 validateJS.extend(validateJS.validators.datetime, {
   parse(value) {
-    return +moment.utc(value, DATE_FORMAT);
+    return moment.utc(value, DATE_FORMAT);
   },
   format(value) {
     return moment.utc(value).format(DATE_FORMAT);
@@ -23,6 +23,9 @@ export const DATE_VALIDATION_SCHEMA = {
   presence: true,
   datetime: {
     dateOnly: true
+  },
+  format: {
+    pattern: '[0-9]{2}\\.[0-9]{2}\\.[0-9]{4}'
   }
 };
 
