@@ -5,7 +5,7 @@ import autobind from 'autobind';
 import { connect } from 'react-redux';
 
 import AddNewEmployee from '../../components/lists/AddNewEmployee';
-import ListItem from '../../components/lists/EmployeeListItem';
+import ListItem from '../../components/lists/ListItem';
 
 import EmployeeModel from '../../models/Employee';
 import {

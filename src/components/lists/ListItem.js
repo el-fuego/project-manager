@@ -1,12 +1,12 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { ListGroupItem } from 'reactstrap';
 
-import EmployeeModel from '../../models/Employee';
-
-export default class EmployeeListItem extends PureComponent {
+export default class ListItem extends PureComponent {
   static propTypes = {
     href: PropTypes.string.isRequired,
-    entity: PropTypes.instanceOf(EmployeeModel).isRequired,
+    entity: React.PropTypes.shape({
+      name: React.PropTypes.string
+    }).isRequired,
     isActive: PropTypes.bool
   };
 
@@ -19,7 +19,7 @@ export default class EmployeeListItem extends PureComponent {
 
     return (
       <ListGroupItem tag="a" action active={isActive} href={href}>
-        {entity.name} [{entity.email}]
+        {entity.name}
       </ListGroupItem>
     );
   }

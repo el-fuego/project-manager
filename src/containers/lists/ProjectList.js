@@ -5,7 +5,7 @@ import autobind from 'autobind';
 import { connect } from 'react-redux';
 
 import AddNewProject from '../../components/lists/AddNewProject';
-import ListItem from '../../components/lists/ProjectListItem';
+import ListItem from '../../components/lists/ListItem';
 
 import ProjectModel from '../../models/Project';
 import {
