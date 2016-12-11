@@ -13,11 +13,11 @@ export default class EntityDetails extends PureComponent {
   };
 
   @autobind
-  updateProject(data) {
-    const { entity: { id }, updateEntity } = this.props;
+  updateEntityFiled(fieldName, data) {
+    const { entity, updateEntity } = this.props;
     updateEntity({
-      ...data,
-      id
+      ...entity,
+      [fieldName]: data
     });
   }
 

@@ -28,7 +28,10 @@ export default class ProjectDetails extends EntityDetails {
 
   get content() {
     return (
-      <Details entity={this.props.entity} onRemove={this.removeEntity} />
+      <Details
+        entity={this.props.entity}
+        onRemove={this.removeEntity}
+        onFieldSave={this.updateEntityFiled} />
     );
   }
 }
