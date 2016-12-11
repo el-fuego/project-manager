@@ -6,11 +6,11 @@ import { Input, InputGroup, InputGroupButton } from 'reactstrap';
 export default class EditableInput extends PureComponent {
   static propTypes = {
     value: PropTypes.string.isRequired,
+    hasError: PropTypes.bool,
     onSave: PropTypes.func
   };
 
   static defaultProps = {
-    onChange: noop,
     onSave: noop
   };
 
@@ -58,7 +58,7 @@ export default class EditableInput extends PureComponent {
         <InputGroupButton color="secondary" onClick={this.disableEdit}>
           Cancel
         </InputGroupButton>
-        <InputGroupButton color="primary" onClick={this.onSave}>
+        <InputGroupButton color="primary" disabled={this.props.hasError} onClick={this.onSave}>
           Save
         </InputGroupButton>
       </InputGroup>
