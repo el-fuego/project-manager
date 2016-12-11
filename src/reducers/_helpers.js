@@ -1,13 +1,13 @@
 import { castArray, map, keyBy, without } from 'lodash';
 
 /**
- * Add as new Model single or array data from response to scope
+ * Add or update as new Model single or array data from response to scope
  * @param {Function} Model Class to wrap data
  * @param {Object} scope Reducer`s store part
  * @param {Object} action Redux action
  * @return {Object} new scope
  */
-export function addAsModelsByIds(Model, scope, action) {
+export function updateAsModelsByIds(Model, scope, action) {
   const modelsData = castArray(action.payload);
   if (!modelsData.length) {
     return scope;

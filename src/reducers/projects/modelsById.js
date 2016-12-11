@@ -4,7 +4,7 @@ import { partial } from 'lodash';
 
 import { NAMES } from '../../actions/projects';
 import Project from '../../models/Project';
-import { addAsModelsByIds } from '../_helpers';
+import { updateAsModelsByIds } from '../_helpers';
 
 /**
  * All data are stored at single place to avoid few exemplares of models.
@@ -15,9 +15,10 @@ import { addAsModelsByIds } from '../_helpers';
  * }
  */
 
-const add = partial(addAsModelsByIds, Project);
+const add = partial(updateAsModelsByIds, Project);
 export default handleActions({
   [resolve(NAMES.LIST)]: add,
   [resolve(NAMES.GET)]: add,
-  [resolve(NAMES.CREATE)]: add
+  [resolve(NAMES.CREATE)]: add,
+  [resolve(NAMES.UPDATE)]: add
 }, {});
