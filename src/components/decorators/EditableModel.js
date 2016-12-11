@@ -67,6 +67,14 @@ export default function EditableModelDecorator(Model) {
         });
       }
 
+      @autobind
+      resetField(fieldName) {
+        this.copyModel({
+          ...this.state.model,
+          [fieldName]: this.props.entity[fieldName]
+        });
+      }
+
       render() {
         const { model } = this.state;
         const errors = model.validate();
@@ -77,6 +85,7 @@ export default function EditableModelDecorator(Model) {
           errors,
           hasErrors: !isEmpty(errors),
           resetModel: this.resetModel,
+          resetField: this.resetField,
           updateField: this.updateField,
           updateDateField: this.updateDateField,
           getFirstErrorFor: partial(getFirstErrorFor, errors)
