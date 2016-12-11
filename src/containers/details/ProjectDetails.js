@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import autobind from 'autobind';
 
 import Details from '../../components/details/ProjectDetails';
 import ProjectModel from '../../models/Project';
@@ -22,15 +21,10 @@ import EntityDetails from './_EntityDetails';
 export default class ProjectDetails extends EntityDetails {
   static propTypes = {
     ...EntityDetails.propTypes,
-    removeEntity: PropTypes.func.isRequired,
     entity: PropTypes.instanceOf(ProjectModel)
   };
 
-  @autobind
-  removeEntity() {
-    this.props.removeEntity(this.props.entity.id);
-    this.context.router.push(PATHS.PROJECTS);
-  }
+  AFTER_REMOVE_PATH = PATHS.PROJECTS;
 
   get content() {
     return (
