@@ -1,9 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { partial } from 'lodash';
 import { Form, Button } from 'reactstrap';
 
 import ProjectModel from '../../models/Project';
-import EditableInput from '../EditableInput';
 import EditableDateInput from '../EditableDateInput';
 import FormFieldWithError from '../FormFieldWithError';
 import EditableModel from '../decorators/EditableModel';
@@ -16,45 +15,33 @@ export default class ProjectDetails extends EntityDetails {
     ...EntityDetails.propTypes,
     entity: PropTypes.instanceOf(ProjectModel).isRequired,
     onRemove: PropTypes.func.isRequired,
-    resetField: PropTypes.func.isRequired,
-    updateField: PropTypes.func.isRequired,
-    updateDateField: PropTypes.func.isRequired,
-    getFirstErrorFor: PropTypes.func.isRequired
+    updateDateField: PropTypes.func.isRequired
   };
 
+  renderDateField(label, fieldName) {
+    const { model, entity, getFirstErrorFor, updateDateField, resetField } = this.props;
+    const canSave = entity[fieldName] !== model[fieldName];
+
+    return (
+      <FormFieldWithError label={label} error={getFirstErrorFor(fieldName)} touched>
+        <EditableDateInput
+          value={entity[fieldName]}
+          canSave={canSave}
+          onChange={partial(updateDateField, fieldName)}
+          onCancel={partial(resetField, fieldName)}
+          onSave={partial(this.saveField, fieldName)} />
+      </FormFieldWithError>
+    );
+  }
+
   render() {
-    const { model, entity, getFirstErrorFor, updateField,
-      updateDateField, resetField, onRemove } = this.props;
+    const { onRemove } = this.props;
 
     return (
       <Form>
-        <FormFieldWithError label="Name" error={getFirstErrorFor('name')} touched>
-          <EditableInput
-            value={entity.name}
-            canSave={entity.email !== model.email}
-            onChange={partial(updateField, 'name')}
-            onCancel={partial(resetField, 'name')}
-            onSave={partial(this.saveField, 'name')} />
-        </FormFieldWithError>
-
-        <FormFieldWithError label="Start Date" error={getFirstErrorFor('startDate')} touched>
-          <EditableDateInput
-            value={entity.startDate}
-            canSave={entity.startDate !== model.startDate}
-            onChange={partial(updateDateField, 'startDate')}
-            onCancel={partial(resetField, 'startDate')}
-            onSave={partial(this.saveField, 'startDate')} />
-        </FormFieldWithError>
-
-        <FormFieldWithError label="End Date" error={getFirstErrorFor('endDate')} touched>
-          <EditableDateInput
-            value={entity.endDate}
-            canSave={entity.endDate !== model.endDate}
-            onChange={partial(updateDateField, 'endDate')}
-            onCancel={partial(resetField, 'startDate')}
-            onSave={partial(this.saveField, 'endDate')} />
-        </FormFieldWithError>
-
+        {this.renderField('Name', 'name')}
+        {this.renderDateField('Start Date', 'startDate')}
+        {this.renderDateField('End Date', 'endDate')}
 
         <Button color="link" onClick={onRemove}>
           Remove Project
