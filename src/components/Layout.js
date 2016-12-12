@@ -28,11 +28,6 @@ export default class Layout extends PureComponent {
       <Container fluid>
         <Row>
           <Col>
-            <Input type="search" placeholder="search.." />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
             <Nav tabs>
               {map(tabsData, this.renderTab)}
             </Nav>
