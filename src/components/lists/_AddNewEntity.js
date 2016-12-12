@@ -27,7 +27,8 @@ export default class AddNewEntity extends PureComponent {
   };
 
   @autobind
-  openModal() {
+  openModal(event) {
+    event.preventDefault();
     this.setState({
       isModalOpen: true
     });
