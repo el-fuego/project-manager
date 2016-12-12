@@ -43,7 +43,7 @@ export default class ProjectDetails extends EntityDetails {
     const { onRemove } = this.props;
 
     return (
-      <Form>
+      <section>
         <p><b>Project details:</b></p>
 
         {this.renderField('Name', 'name')}
@@ -58,7 +58,7 @@ export default class ProjectDetails extends EntityDetails {
 
         {this.projectEmployees}
 
-      </Form>
+      </section>
     );
   }
 }
