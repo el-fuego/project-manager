@@ -3,7 +3,7 @@ import { partial } from 'lodash';
 import autobind from 'autobind';
 import { ListGroupItem, Input } from 'reactstrap';
 import DateTime from 'react-datetime';
-import styles from 'react-datetime/css/react-datetime.css';
+import 'react-datetime/css/react-datetime.css';
 
 import FormFieldWithError from '../FormFieldWithError';
 import NewEntityModal from './_NewEntityModal';
