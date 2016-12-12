@@ -1,6 +1,7 @@
 import { PropTypes, PureComponent } from 'react';
 import autobind from 'autobind';
 
+
 export default class EntityDetails extends PureComponent {
   static propTypes = {
     updateEntity: PropTypes.func.isRequired,

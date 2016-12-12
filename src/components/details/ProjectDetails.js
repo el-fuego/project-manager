@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react';
-import { partial } from 'lodash';
+import { map } from 'lodash';
 import { Form, Button } from 'reactstrap';
 
 import ProjectModel from '../../models/Project';
-import EditableDateInput from '../EditableDateInput';
-import FormFieldWithError from '../FormFieldWithError';
+import EmployeeModel from '../../models/Employee';
+import ProjectEmployeeModel from '../../models/ProjectEmployee';
 import EditableModel from '../decorators/EditableModel';
+import AddNewProjectEmployee from './AddNewProjectEmployee';
 import EntityDetails from './_EntityDetails';
+import ProjectEmployeeDetails from './ProjectEmployeeDetails';
 
 
 @EditableModel(ProjectModel)
@@ -15,22 +17,25 @@ export default class ProjectDetails extends EntityDetails {
     ...EntityDetails.propTypes,
     entity: PropTypes.instanceOf(ProjectModel).isRequired,
     onRemove: PropTypes.func.isRequired,
-    updateDateField: PropTypes.func.isRequired
+    onAddProjectEmployee: PropTypes.func.isRequired,
+    projectEmployees: PropTypes.arrayOf(PropTypes.instanceOf(ProjectEmployeeModel)).isRequired,
+    employees: PropTypes.arrayOf(PropTypes.instanceOf(EmployeeModel)).isRequired
   };
 
-  renderDateField(label, fieldName) {
-    const { model, entity, getFirstErrorFor, updateDateField, resetField } = this.props;
-    const canSave = entity[fieldName] !== model[fieldName];
-
+  get projectEmployees() {
+    const { entity, employees, projectEmployees, onAddProjectEmployee } = this.props;
     return (
-      <FormFieldWithError label={label} error={getFirstErrorFor(fieldName)} touched>
-        <EditableDateInput
-          value={entity[fieldName]}
-          canSave={canSave}
-          onChange={partial(updateDateField, fieldName)}
-          onCancel={partial(resetField, fieldName)}
-          onSave={partial(this.saveField, fieldName)} />
-      </FormFieldWithError>
+      <section>
+        <p><b>Employees on this project:</b></p>
+
+        {map(projectEmployees, projectEmployee =>
+          <ProjectEmployeeDetails entity={projectEmployee} key={projectEmployee.id} />
+        )}
+        <AddNewProjectEmployee
+          employees={employees}
+          entity={{projectId: entity.id}}
+          onAdd={onAddProjectEmployee} />
+      </section>
     );
   }
 
@@ -39,6 +44,8 @@ export default class ProjectDetails extends EntityDetails {
 
     return (
       <Form>
+        <p><b>Project details:</b></p>
+
         {this.renderField('Name', 'name')}
         {this.renderDateField('Start Date', 'startDate')}
         {this.renderDateField('End Date', 'endDate')}
@@ -46,6 +53,11 @@ export default class ProjectDetails extends EntityDetails {
         <Button color="link" onClick={onRemove}>
           Remove Project
         </Button>
+
+        <p />
+
+        {this.projectEmployees}
+
       </Form>
     );
   }
