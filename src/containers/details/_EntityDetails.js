@@ -1,12 +1,17 @@
 import { PropTypes, PureComponent } from 'react';
+import { find } from 'lodash';
 import autobind from 'autobind';
+
+import ProjectEmployeeModel from '../../models/ProjectEmployee';
 
 
 export default class EntityDetails extends PureComponent {
   static propTypes = {
     updateEntity: PropTypes.func.isRequired,
     removeEntity: PropTypes.func.isRequired,
-    entity: PropTypes.object.isRequired
+    updateProjectEmployee: PropTypes.func.isRequired,
+    entity: PropTypes.object.isRequired,
+    projectEmployees: PropTypes.arrayOf(PropTypes.instanceOf(ProjectEmployeeModel)).isRequired
   };
 
   static contextTypes = {
@@ -18,6 +23,21 @@ export default class EntityDetails extends PureComponent {
     const { entity, updateEntity } = this.props;
     updateEntity({
       ...entity,
+      [fieldName]: data
+    });
+  }
+
+  @autobind
+  updateProjectEmployeeFiled(id, fieldName, data) {
+    const { projectEmployees, updateProjectEmployee } = this.props;
+    const currentProjectEmployee = find(projectEmployees, { id });
+
+    if (!currentProjectEmployee) {
+      return;
+    }
+
+    updateProjectEmployee({
+      ...currentProjectEmployee,
       [fieldName]: data
     });
   }

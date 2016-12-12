@@ -10,6 +10,7 @@ import EntityDetails from './_EntityDetails';
 export default class ProjectEmployeeDetails extends EntityDetails {
   static propTypes = {
     ...EntityDetails.propTypes,
+    onFieldSave: PropTypes.func,
     entity: PropTypes.instanceOf(ProjectEmployeeModel).isRequired
   };
 

@@ -5,13 +5,12 @@ import { connect } from 'react-redux';
 import Details from '../../components/details/ProjectDetails';
 import ProjectModel from '../../models/Project';
 import EmployeeModel from '../../models/Employee';
-import ProjectEmployeeModel from '../../models/ProjectEmployee';
 import {
   updateProject as updateEntity,
   removeProject as removeEntity
 } from '../../actions/projects';
 import { listEmployees } from '../../actions/employees';
-import { listProjectEmployees, createProjectEmployee } from '../../actions/projectEmployees';
+import { listProjectEmployees, createProjectEmployee, updateProjectEmployee } from '../../actions/projectEmployees';
 import { PATHS } from '../../core/routes';
 
 import EntityDetails from './_EntityDetails';
@@ -26,6 +25,7 @@ import EntityDetails from './_EntityDetails';
   removeEntity,
   listProjectEmployees,
   createProjectEmployee,
+  updateProjectEmployee,
   listEmployees
 })
 export default class ProjectDetails extends EntityDetails {
@@ -34,7 +34,6 @@ export default class ProjectDetails extends EntityDetails {
     entity: PropTypes.instanceOf(ProjectModel),
     listEmployees: PropTypes.func.isRequired,
     createProjectEmployee: PropTypes.func.isRequired,
-    projectEmployees: PropTypes.arrayOf(PropTypes.instanceOf(ProjectEmployeeModel)).isRequired,
     employees: PropTypes.arrayOf(PropTypes.instanceOf(EmployeeModel)).isRequired
   };
 
@@ -55,6 +54,7 @@ export default class ProjectDetails extends EntityDetails {
         entity={entity}
         employees={employees}
         projectEmployees={projectEmployees}
+        onProjectEmployeeFieldSave={this.updateProjectEmployeeFiled}
         onAddProjectEmployee={createProjectEmployee}
         onRemove={this.removeEntity}
         onFieldSave={this.updateEntityFiled} />
