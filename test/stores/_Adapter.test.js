@@ -1,4 +1,4 @@
-import EntityAdapter from '../../src/sources/_EntityAdapter';
+import Adapter from '../../src/sources/_Adapter';
 
 /*
  * There is just a test example
@@ -6,9 +6,9 @@ import EntityAdapter from '../../src/sources/_EntityAdapter';
 
 const ENTITY = {id: 1, sortIndex: 0};
 const store = { get() {} };
-const adapter = new EntityAdapter(store);
+const adapter = new Adapter(store);
 
-describe('EntityAdapter', function () {
+describe('Adapter', function () {
 
   beforeEach(function () {
     this.storeMock = sinon.mock(store);

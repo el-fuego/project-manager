@@ -1,5 +1,8 @@
 import { sortBy, findIndex } from 'lodash';
 
+import Adapter from './_Adapter';
+
+
 function increaseSortIndex(items, startIndex, endIndex, value) {
   const affectedItems = [];
   for (let i = startIndex; i <= endIndex; i += 1) {
@@ -12,37 +15,20 @@ function increaseSortIndex(items, startIndex, endIndex, value) {
 }
 
 // Server API emulation
-export default class EntityAdapter {
-  constructor(store) {
-    this.store = store;
-  }
+export default class EntityAdapter extends Adapter {
 
   list() {
-    return this.store.all().then(list => sortBy(list, 'sortIndex'));
+    return super.list().then(list => sortBy(list, 'sortIndex'));
   }
 
   create(data) {
-    const id = Date.now();
     return this.list()
       .then(items => this.store.put({
         ...data,
-        id,
+        id: Date.now(),
         sortIndex: items.length ? items[items.length - 1] + 1 : 0
       }))
       .then(this.store.get);
-  }
-
-  get(id) {
-    return this.store.get(id);
-  }
-
-  update(data) {
-    return this.store.put(data)
-      .then(this.store.get);
-  }
-
-  remove(id) {
-    return this.store.del(id).then(() => id);
   }
 
   // in real life there will be just http call
