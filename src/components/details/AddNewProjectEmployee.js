@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { partial, map } from 'lodash';
-import { Form, Input } from 'reactstrap';
+import { Form, Input, Button } from 'reactstrap';
 
 import AddNewEntity from '../lists/_AddNewEntity';
 import ProjectEmployeeModel from '../../models/ProjectEmployee';
@@ -39,6 +39,14 @@ export default class AddNewEmployee extends AddNewEntity {
       <option value={id} key={id}>
         {name}
       </option>
+    );
+  }
+
+  get button() {
+    return (
+      <Button color="success" onClick={this.openModal}>
+        + Add new Employee
+      </Button>
     );
   }
 
