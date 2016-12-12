@@ -2,8 +2,8 @@
 Manage projects and employees
 
 ### Deployed versions
-Master: https://el-fuego.github.io/project-manager/dist/index.html
-Feature branch (under development): https://el-fuego.github.io/project-manager/dist/feature-branch/index.html
+* Master: https://el-fuego.github.io/project-manager/dist/index.html
+* Feature branch (under development): https://el-fuego.github.io/project-manager/dist/feature-branch/index.html
 
 ### Run locally
 
