@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { partial } from 'lodash';
 import autobind from 'autobind';
 
-import EditableInput from '../EditableInput';
+import EditableInput from '../EditableInput/EditableInput';
 import FormFieldWithError from '../FormFieldWithError';
 
 

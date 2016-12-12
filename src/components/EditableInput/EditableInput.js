@@ -3,6 +3,9 @@ import { noop, omit } from 'lodash';
 import autobind from 'autobind';
 import { Input, InputGroup, InputGroupButton } from 'reactstrap';
 
+import './EditableInput.styl';
+
+
 export default class EditableInput extends PureComponent {
   static propTypes = {
     value: PropTypes.string.isRequired,
@@ -53,7 +56,7 @@ export default class EditableInput extends PureComponent {
 
     if (!this.state.isEdit) {
       return (
-        <Input static onClick={this.makeEditable}>{value}</Input>
+        <Input className="editable-input-text" static onClick={this.makeEditable}>{value}</Input>
       );
     }
 
