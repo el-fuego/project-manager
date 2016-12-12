@@ -8,6 +8,9 @@ import projectsById from './projects/modelsById';
 import employeeIds from './employees/ids';
 import employeesById from './employees/modelsById';
 
+import projectEmployeeIds from './projectEmployees/ids';
+import projectEmployeesById from './projectEmployees/modelsById';
+
 export default combineReducers({
   searchQuery,
 
@@ -15,5 +18,8 @@ export default combineReducers({
   projectsById,
 
   employeeIds,
-  employeesById
+  employeesById,
+
+  projectEmployeeIds,
+  projectEmployeesById
 });
